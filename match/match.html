@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta id="myViewport" name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function () {
+            if (window.innerWidth <= 505) {
+                var mvp = document.getElementById('myViewport');
+                mvp.setAttribute('content', 'width=505');
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="stylemobile.css">
+    <link rel="stylesheet" href="styledesktop.css" media="only screen and (min-width: 1200px)">
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <script src="../js/dropdown.js"></script>
+    <script src="../js/urlparam.js"></script>
+    <script src="../js/linker.js"></script>
+    <script src="../js/opener.js"></script>
+    <title>Let'sMatch &#8729; Match</title>
+    <script>
+        if (lang == LANG_EN) {
+            document.getElementsByTagName("title")[0].innerHTML = "Let'sMatch &#8729; match";
+        }
+    </script>
+     <!--Cookie notification-->
+     <link rel="stylesheet" type="text/css" href="../cookie.css"/>
+     <script src="../js/cookie.js"></script>
+     <script>
+         window.addEventListener("load", function () {
+             var background_color = "#ffffff";
+             var text_color = "#3a3a3a";
+             var button_color = "#e36165";
+             var button_text_color = "#ffffff";
+             var text = undefined;
+             if(lang==LANG_EN){
+                 text = "Let'sMatch uses cookies to provide essential features. Disabling cookies will make this website not work anymore.";
+             }
+             else{
+                 text = "Let'sMatch benutzt Cookies um wichtige Funktionen zur Verfügung zu stellen. Bei Deaktivierung von Cookies wird die Webseite nicht mehr funktionieren.";
+             }
+             window.cookieconsent.initialise({
+                 "palette": {
+                     "popup": {
+                         "background": background_color,
+                         "text": text_color
+                     },
+                     "button": {
+                         "background": button_color,
+                         "text": button_text_color
+                     }
+                 },
+                 "content": {
+                     "message": text,
+                     "href": "juristic/cookie.html"
+                 }
+             })
+         });
+     </script>
+</head>
+
+<body onresize="setSize(); checkResolution();">
+    <div class="stylesheet_check" id="stylesheet_check"></div>
+    <div class="dropdown_background" id="dropdown_background"></div>
+    <div id="pseudoformatter">
+        <header class="topnav" id="topnav">
+            <div class="topnav_overflow" id="topnav_overflow">
+                <div class="navddicon" id='navddicon' onclick="navddOnClick();">&#9776;</div>
+                <div class="homebutton">
+                    <a onclick="link('../index.html');">
+                        <img src="../logo.png">
+                    </a>
+                </div>
+                <div class="centercontent">
+                    <div class="wrapper">
+                        <a id="match" onclick="link('match.html');">
+                            <i class="material-icons">&#xE915;</i>Match</a>
+                        <a id="leaderboard" onclick="link('../leaderboard/leaderboard.html');">
+                            <i class="material-icons">&#xE242;</i>
+                            <span class="en">Leaderboard</span>
+                            <span class="de">Bestenliste</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="rightwrapper" id="rightwrapper">
+                    <div class="profilebutton">
+                        <a id="profile" onclick="link('../profile/login.html');">
+                            <img src="../image.png" id="rightwrapperprofileimg">
+                            <span class="en profilelabel">Profile</span>
+                            <span class="de profilelabel">Profil</span>
+                        </a>
+                    </div>
+                    <div class="langddicon" onclick="langddOnClick();">
+                        <i class="material-icons" id='langddicon_one'>&#xE8E2;</i>
+                        <i class="material-icons" id='langddicon_two'>&#xE313;</i>
+                    </div>
+                </div>
+                <div class='navdd' id='navdd'>
+                    <p>
+                        <a id="dmatch" onclick="link('match.html');">
+                            <i class="material-icons">&#xE915;</i>Match</a>
+                    </p>
+                    <p>
+                        <a id="dleaderboard" onclick="link('../leaderboard/leaderboard.html');">
+                            <i class="material-icons">&#xE242;</i>
+                            <span class="en">Leaderboard</span>
+                            <span class="de">Bestenliste</span>
+                        </a>
+                    </p>
+                    <p>
+                        <a id="dprofile" onclick="link('../profile/login.html');">
+                            <img src="../image.png" id="navddprofileimg">
+                            <span class="en profilelabel">Profile</span>
+                            <span class="de profilelabel">Profil</span>
+                        </a>
+                    </p>
+                </div>
+                <div class="langdd" id='langdd'>
+                    <p class="ger" id="langddger" onclick="changeLang('ger');">
+                        <img src="../flags/flag_ger.png">
+                        <p1>Deutsch</p1>
+                    </p>
+                    <p class="eng" id="langddeng" onclick="changeLang('eng');">
+                        <img src="../flags/flag_us.png">
+                        <p1>English</p1>
+                    </p>
+                </div>
+                <div class="designline_left" id="designline_left"></div>
+                <div class="designline_right" id="designline_right"></div>
+            </div>
+        </header>
+        <main class="main">
+            <div class="background"></div>
+            <div class="home">
+                <div class="selectdialog" id="selectdialog">
+                    <div class="firststep">
+                        <div class="header">
+                            <span class="de">1. W&auml;hle einen Match-Modus:</span>
+                            <span class="en">1. Choose a match-mode:</span>
+                        </div>
+                        <div class="options">
+                            <label class="container" id="rvsrbutton" title="One random user matched with another random user">
+                                <span class="de">Zufall gegen Zufall</span>
+                                <span class="en">Random vs Random</span>
+                                <input type="checkbox" id="checkbox_rvsr" onclick="setModeButtonClicked(0);">
+                                <div class="circle" id="rvsrcircle">
+                                    <i class="checkmark material-icons">&#xE5CA;</i>
+                                </div>
+                            </label>
+                            <label class="container" id="1vsrbutton" title="One chosen user matches with random users">
+                                <input type="checkbox" id="checkbox_1vsr" onclick="setModeButtonClicked(1);">
+                                <div class="circle" id="onevsrcircle">
+                                    <i class="checkmark material-icons">&#xE5CA;</i>
+                                </div>
+                                <span class="de">Nutzer gegen Zufall</span>
+                                <span class="en">User vs Random</span>
+                            </label>
+                        </div>
+                        <div class="separationline"></div>
+                        <script>
+                            if (lang == LANG_DE) {
+                                document.getElementById("rvsrbutton").title = "Ein zufälliger Nutzer wird mit einem anderen zufälligen Nutzer gemachted";
+                                document.getElementById("1vsrbutton").title = "Ein gewählter Nutzer wird mit zufälligen Nutzern gemachted";
+                            }
+                        </script>
+                    </div>
+                    <div class="secondstep_rvsr" id="secondstep_rvsr">
+                        <div class="header">
+                            <span class="de">2. W&auml;hle ein Geschlecht:</span>
+                            <span class="en">2. Choose a gender:</span>
+                        </div>
+                        <div class="options">
+                            <label class="container" id="malebutton" title="Matching male gender">
+                                <i class="fa fa-mars"></i>
+                                <span class="de">M&auml;nnlich</span>
+                                <span class="en">Male</span>
+                                <input type="checkbox" id="checkbox_male" onclick="setGenderButtonClicked(0);">
+                                <div class="circle" id="malecircle">
+                                    <i class="checkmark material-icons">&#xE5CA;</i>
+                                </div>
+                            </label>
+                            <label class="container" id="femalebutton" title="Matching female gender">
+                                <input type="checkbox" id="checkbox_female" onclick="setGenderButtonClicked(1);">
+                                <div class="circle" id="femalecircle">
+                                    <i class="checkmark material-icons">&#xE5CA;</i>
+                                </div>
+                                <span class="de">Weiblich</span>
+                                <span class="en">Female</span>
+                                <i class="fa fa-venus"></i>
+                            </label>
+                        </div>
+                        <div class="separationline"></div>
+                        <script>
+                            if (lang == LANG_DE) {
+                                document.getElementById("malebutton").title = "Männer werden gemachted";
+                                document.getElementById("femalebutton").title = "Frauen werden gemachted";
+                            }
+                        </script>
+                    </div>
+                    <div class="secondstep_1vsr" id="secondstep_1vsr">
+                        <div class="header">
+                            <span class="de">2. W&auml;hle einen Nutzer:</span>
+                            <span class="en">2. Choose a user:</span>
+                        </div>
+                        <div class="search">
+                            <input type="text" id="searchinput" placeholder="Username..." autocomplete="off" autocorrect="off" autocapitalize="off" oninput="getUserOffers();">
+                            <div class="searcharrow offerwindow"></div>
+                            <div class="useroffers offerwindow"></div>
+                            <i class="material-icons" id="selectionstatus">&#xE14C;</i>
+                        </div>
+                        <div class="separationline"></div>
+                        <script>
+                            if (lang == LANG_DE) {
+                                document.getElementById("searchinput").placeholder = "Nutzername...";
+                            }
+                        </script>
+                    </div>
+                    <div class="laststep" id="laststep">
+                        <div class="applybtn" onclick="letsMatchButtonClicked();">
+                            <span>Let's match!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navpoints">
+                <i class="material-icons" onclick="link('../index.html');">&#xE40C;</i>
+                <i class="material-icons" onclick='link("match.html");'>&#xE3FA;</i>
+                <i class="material-icons" onclick='link("../leaderboard/leaderboard.html");'>&#xE40C;</i>
+                <i class="material-icons" onclick='link("../profile/login.html");'>&#xE40C;</i>
+            </div>
+        </main>
+        <div class="arrow_left">
+            <i class="material-icons" onclick="link('../index.html');">&#xE408;</i>
+        </div>
+        <div class="arrow_right">
+            <i class="material-icons" onclick='link("../leaderboard/leaderboard.html");'>&#xE409;</i>
+        </div>
+        <footer class="footer">
+            <div class="center">
+                <ul class="footersections">
+                    <li>
+                        <ul class="footerbuttons">
+                            <li>
+                                <a href="#privacypolicy">
+                                    <span class="en">Privacy Policy</span>
+                                    <span class="de">Datenschutz</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#termsofuse">
+                                    <span class="en">Terms of Use</span>
+                                    <span class="de">Nutzungsbedingungen</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#contact">
+                                    <span class="en">Contact</span>
+                                    <span class="de">Kontakt</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#help">
+                                    <span class="en">Help</span>
+                                    <span class="de">Hilfe</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="footersocial">
+                            <li>
+                                <a href="https://www.facebook.com" target="_blank">
+                                    <img src="../social_icons/facebook.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com" target="_blank">
+                                    <img src="../social_icons/instagram.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.snapchat.com" target="_blank">
+                                    <img src="../social_icons/snapchat.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com" target="_blank">
+                                    <img src="../social_icons/twitter.png">
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="footercopyright">
+                        <span class="en">Copyright &copy; 2017 Nico Gie&szlig;mann. All rights reserved.</span>
+                        <span class="de">Copyright &copy; 2017 Nico Gie&szlig;mann. Alle Rechte vorbehalten.</span>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+    <div class="matchwindow" id="matchwindow">
+        <div class="animationLayer">
+            <div id="number"></div>
+        </div>
+        <div class="topbar">
+            <i class="material-icons" onclick="hideMatchWindow();">&#xE888;</i>
+            <div class="title">
+                <img src="../logo.png" onclick="link('../index.html');">
+            </div>
+            <div class="personalscore" id="personalscore">
+                <span class="en">Your Score: </span>
+                <span class="de">Deine Punkte: </span>
+                <span id="personalpoints"></span>
+                <span>(</span>
+                <span id="personalplace"></span>
+                <span>)</span>
+            </div>
+            <div class="logincontainer" id="logincontainer">
+                <i class="material-icons" onclick="ddClick();">&#xE88F;</i>
+                <div class="advice">
+                    <span class="en">Login in for better experience!</span>
+                    <span class="de">Melde dich an f&uuml;r ein besseres Erlebnis!</span>
+                    <i class="material-icons">&#xE8E4;</i>
+                </div>
+                <div class="loginadvice" id="loginadvice" onclick="ddClick();">
+                    <span class="en">You may log in or register, to earn points for matching!</span>
+                    <span class="de">Logge dich ein oder registriere dich, um Punkte fürs Matchen zu erhalten!</span>
+                    <br>
+                    <i class="material-icons">&#xE8E4;</i>
+                    <a class="link en" onclick="link('../profile/login.html');">Go to login</a>
+                    <a class="link de" onclick="link('../profile/login.html');">Gehe zum Login</a>
+                </div>
+            </div>
+            <div class="designline_left" id="designline_left"></div>
+            <div class="designline_right" id="designline_right"></div>
+        </div>
+        <div class="imagecontainer">
+            <div class="refreshDiv1" id="refreshDiv1Container">
+                <div id="refreshIcon1">
+                    <i class="material-icons" id="rotateIcon1">&#xE863;</i>
+                    <span class="de">Neues Match wird gesucht...</span>
+                    <span class="en">Searching for new match...</span>
+                </div>
+            </div>
+            <div class="centerdiv1" id="centerdiv1">
+                <img class="image1" id="image1" src="default.png" onclick="animateImagePopUp(0);">
+                <div class="description" id="desc1" onclick="hideDescription(1);">
+                    <div class="text" id="text1"></div>
+                    <i class="material-icons" id="icon1">&#xE5CE;</i>
+                </div>
+                <div class="stats" id="stats1">
+                    <div class="place1">
+                        <span id="place1"></span>
+                        <span class="dot">.</span>
+                    </div>
+                    <div class="points1">
+                        <span id="points1"></span>
+                        <span class="en"> Points</span>
+                        <span class="de"> Punkte</span>
+                    </div>
+                    <div id="bonus1"></div>
+                </div>
+            </div>
+            <div class="reportwindow1" id="reportwindow1">
+                <i class="material-icons" id="reporticon1" onclick="interactReportDialog(0);">&#xE645;</i>
+                <br>
+                <div class="reportdialog" id="reportdialog1" onclick="interactReportDialog(0);">
+                    <div class="headline">
+                        <span class="de">Du findest diesen Nutzer unangebracht? Melde ihn!</span>
+                        <span class="en">You think this user is inappropriate? Report him!</span>
+                    </div>
+                    <br>
+                    <div class="break"></div>
+                    <br>
+                    <div class="reportoptions">
+                        <div class="report_fakeidentity" onclick="report(0, 0);">
+                            <span class="de">Falsche Identität</span>
+                            <span class="en">Fake identity</span>
+                        </div>
+                        <br>
+                        <div class="report_inappropriateimage" onclick="report(0, 1);">
+                            <span class="de">Unangebrachtes Bild</span>
+                            <span class="en">Inappropriate image</span>
+                        </div>
+                        <br>
+                        <div class="report_inappropriateusername" onclick="report(0, 2);">
+                            <span class="de">Unangebrachter Nutzername</span>
+                            <span class="en">Inappropriate username</span>
+                        </div>
+                        <br>
+                        <div class="report_inappropriatdescription" onclick="report(0, 3);">
+                            <span class="de">Unangebrachte Beschreibung</span>
+                            <span class="en">Inappropriate description</span>
+                        </div>
+                        <br>
+                        <div class="report_falsegender" onclick="report(0, 4);">
+                            <span class="de">Falsches Geschlecht</span>
+                            <span class="en">False gender</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="separator">
+                <div class="line1"></div>
+                <div class="circle" id="circle" onclick="openAnnotation();">
+                    <div class="circle_background" id="circle_background"></div>
+                    <span>vs.</span>
+                </div>
+                <div class="annotationwindow" id="annotationswindow" onclick="closeAnnotation();">
+                    <span class="de">Matches bis zum Erreichen deines täglichen Bonuslimits:</span>
+                    <span class="en">Matches left to reach your daily bonus limit:</span>
+                    <br>
+                    <span class="bonuscounter" id="bonuscounter"></span>
+                </div>
+                <div class="line2"></div>
+            </div>
+            <div class="refreshDiv2" id="refreshDiv2Container">
+                <div id="refreshIcon2">
+                    <i class="material-icons" id="rotateIcon2">&#xE863;</i>
+                    <span class="de">Neues Match wird gesucht...</span>
+                    <span class="en">Searching for new match...</span>
+                </div>
+            </div>
+            <div class="centerdiv2" id="centerdiv2">
+                <img class="image2" id="image2" src="default.png" onclick="animateImagePopUp(1);">
+                <div class="description" id="desc2" onclick="hideDescription(2);">
+                    <div class="text" id="text2"></div>
+                    <i class="material-icons" id="icon2">&#xE5CE;</i>
+                </div>
+                <div class="stats" id="stats2">
+                    <div class="place2">
+                        <span id="place2"></span>
+                        <span class="dot">.</span>
+                    </div>
+                    <div class="points2">
+                        <span id="points2"></span>
+                        <span class="en"> Points</span>
+                        <span class="de"> Punkte</span>
+                    </div>
+                    <div id="bonus2"></div>
+                </div>
+            </div>
+            <div class="reportwindow2" id="reportwindow2">
+                <i class="material-icons" id="reporticon2" onclick="interactReportDialog(1);">&#xE645;</i>
+                <br>
+                <div class="reportdialog" id="reportdialog2" onclick="interactReportDialog(1);">
+                    <div class="headline">
+                        <span class="de">Du findest diesen Nutzer unangebracht? Melde ihn!</span>
+                        <span class="en">You think this user is inappropriate? Report him!</span>
+                    </div>
+                    <br>
+                    <div class="break"></div>
+                    <br>
+                    <div class="reportoptions">
+                        <div class="report_fakeidentity" onclick="report(1, 0);">
+                            <span class="de">Falsche Identität</span>
+                            <span class="en">Fake identity</span>
+                        </div>
+                        <br>
+                        <div class="report_inappropriateimage" onclick="report(1, 1);">
+                            <span class="de">Unangebrachtes Bild</span>
+                            <span class="en">Inappropriate image</span>
+                        </div>
+                        <br>
+                        <div class="report_inappropriateusername" onclick="report(1, 2);">
+                            <span class="de">Unangebrachter Nutzername</span>
+                            <span class="en">Inappropriate username</span>
+                        </div>
+                        <br>
+                        <div class="report_inappropriatdescription" onclick="report(1, 3);">
+                            <span class="de">Unangebrachte Beschreibung</span>
+                            <span class="en">Inappropriate description</span>
+                        </div>
+                        <br>
+                        <div class="report_falsegender" onclick="report(1, 4);">
+                            <span class="de">Falsches Geschlecht</span>
+                            <span class="en">False gender</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottombar">
+            <div class="us1">
+                <div id="us1"></div>
+                <i class="material-icons">&#xE7F0;</i>
+            </div>
+            <div class="linebreak">
+                <i class="material-icons">&#xE915;</i>
+            </div>
+            <div class="us2">
+                <div id="us2"></div>
+                <i class="material-icons">&#xE7F0;</i>
+            </div>
+        </div>
+    </div>
+    <script src="js/cookieload.js"></script>
+    <script src="../js/langswitch.js"></script>
+    <script src="js/select.js"></script>
+    <script src="js/algorithm.js"></script>
+    <script src="js/matchwindow.js"></script>
+</body>
+
+</html>

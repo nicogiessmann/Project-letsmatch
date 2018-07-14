@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta id="myViewport" name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function () {
+            if (window.innerWidth <= 505) {
+                var mvp = document.getElementById('myViewport');
+                mvp.setAttribute('content', 'width=505');
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="stylemobile.css">
+    <link rel="stylesheet" href="styledesktop.css" media="only screen and (min-width: 1200px)">
+    <script src="../js/dropdown.js"></script>
+    <script src="../js/urlparam.js"></script>
+    <script src="../js/linker.js"></script>
+    <script src="../js/opener.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/sync.js"></script>
+    <script src="js/sociallogin.js"></script>
+    <title>Let'sMatch &#8729; Login</title>
+     <!--Cookie notification-->
+     <link rel="stylesheet" type="text/css" href="../cookie.css"/>
+     <script src="../js/cookie.js"></script>
+     <script>
+         window.addEventListener("load", function () {
+             var background_color = "#ffffff";
+             var text_color = "#3a3a3a";
+             var button_color = "#e36165";
+             var button_text_color = "#ffffff";
+             var text = undefined;
+             if(lang==LANG_EN){
+                 text = "Let'sMatch uses cookies to provide essential features. Disabling cookies will make this website not work anymore.";
+             }
+             else{
+                 text = "Let'sMatch benutzt Cookies um wichtige Funktionen zur Verfügung zu stellen. Bei Deaktivierung von Cookies wird die Webseite nicht mehr funktionieren.";
+             }
+             window.cookieconsent.initialise({
+                 "palette": {
+                     "popup": {
+                         "background": background_color,
+                         "text": text_color
+                     },
+                     "button": {
+                         "background": button_color,
+                         "text": button_text_color
+                     }
+                 },
+                 "content": {
+                     "message": text,
+                     "href": "juristic/cookie.html"
+                 }
+             })
+         });
+     </script>
+</head>
+
+<body onresize="checkResolution();">
+    <div class="stylesheet_check" id="stylesheet_check"></div>
+    <header class="topnav" id="topnav">
+        <div class="topnav_overflow" id="topnav_overflow">
+            <div class="navddicon" id='navddicon' onclick="navddOnClick();">&#9776;</div>
+            <div class="homebutton">
+                <a onclick="link('../index.html');">
+                    <img src="../logo.png">
+                </a>
+            </div>
+            <div class="centercontent">
+                <div class="wrapper">
+                    <a id="match" onclick="link('../match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                    <a id="leaderboard" onclick="link('../leaderboard/leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </div>
+            </div>
+            <div class="rightwrapper" id="rightwrapper">
+                <div class="profilebutton">
+                    <a id="profile" onclick="link('login.html');">
+                        <img src="../image.png" id="rightwrapperprofileimg">
+                        <span class="en profilelabel">Profile</span>
+                        <span class="de profilelabel">Profil</span>
+                    </a>
+                </div>
+                <div class="langddicon" onclick="langddOnClick();">
+                    <i class="material-icons" id='langddicon_one'>&#xE8E2;</i>
+                    <i class="material-icons" id='langddicon_two'>&#xE313;</i>
+                </div>
+            </div>
+            <div class='navdd' id='navdd'>
+                <p>
+                    <a id="dmatch" onclick="link('../match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                </p>
+                <p>
+                    <a id="dleaderboard" onclick="link('../leaderboard/leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </p>
+                <p>
+                    <a id="dprofile" onclick="link('login.html');">
+                        <img src="../image.png" id="navddprofileimg">
+                        <span class="en">Profile</span>
+                        <span class="de">Profil</span>
+                    </a>
+                </p>
+            </div>
+            <div class="langdd" id='langdd'>
+                <p class="ger" id="langddger" onclick="changeLang('ger');">
+                    <img src="../flags/flag_ger.png">
+                    <p1>Deutsch</p1>
+                </p>
+                <p class="eng" id="langddeng" onclick="changeLang('eng');">
+                    <img src="../flags/flag_us.png">
+                    <p1>English</p1>
+                </p>
+            </div>
+            <div class="designline_left" id="designline_left"></div>
+            <div class="designline_right" id="designline_right"></div>
+        </div>
+    </header>
+    <div class="dropdown_background" id="dropdown_background"></div>
+    <main class="main">
+        <div class="background"></div>
+        <div class="passwordDialog" id="passwordDialog">
+            <div class="passheader">
+                <i style="cursor:pointer" onclick="backToLogin();" class="material-icons">&#xE317</i>
+                <span class="en">Password reset</span>
+                <span class="de">Passwort zur&uuml;cksetzen</span>
+            </div>
+            <div class="passinfo" id="passinfo">
+                <span class="de">Um dein Passwort zur&uuml;ckzusetzen, gib bitte deinen Nutzernamen oder deine E-Mail ein. Wir schicken dir
+                    anschließend einen Best&auml;tigungscode per E-Mail.</span>
+                <span class="en">Please enter your username or email to reset your password. We will send you a validation-code via email.</span>
+            </div>
+            <div class="passinput" id="passinput">
+                <input class="en" id="usernameinputen" onclick="IDbackToDefault('usernameinputen');" type="text" maxlength="50" placeholder="Please enter username or email...">
+                <input class="de" id="usernameinputde" onclick="IDbackToDefault('usernameinputde');" type="text" maxlength="50" placeholder="Bitte Nutzername oder E-Mail eingeben...">
+                <br>
+                <div class="applybutton" id="applybutton" onclick="sendUsername();">
+                    <span class="de">Absenden</span>
+                    <span class="en">Send</span>
+                </div>
+                <br>
+                <div class="loader" id="loader"></div>
+            </div>
+            <div class="passcodeinput" id="passcodeinput">
+                <span class="en">We have sent you a validation-code. Please check your emails.</span>
+                <span class="de">Wir haben dir einen Best&auml;tigungscode geschickt. &Uuml;berprüfe bitte deine E-Mails.</span>
+                <br>
+                <input id="passcodeinputfield" type="text" maxlength="6" placeholder="Gib deinen Code ein..." onclick="IDbackToDefault('passcodeinputfield');"
+                    oninput="checkCode();">
+                <br>
+                <span class="de">E-Mail nicht erhalten? Klicke
+                    <a onclick="sendEmailAgain();">hier</a>.</span>
+                <span class="en">You didn't receive an email? Click
+                    <a onclick="sendEmailAgain();">here</a>.</span>
+            </div>
+            <div class="passnewpass" id="passnewpass">
+                <span class="en">Enter a new password:</span>
+                <span class="de">Gib ein neues Passwort ein:</span>
+                <br>
+                <input id="passnewpassfield" type="password" maxlength="30" placeholder="Gib bitte dein neues Passwort ein..." onclick="IDbackToDefault('passnewpassfield');">
+                <br>
+                <div class="applybutton" onclick="updatePass();">
+                    <span class="de">Neues Passwort best&auml;tigen</span>
+                    <span class="en">Confirm new password</span>
+                </div>
+            </div>
+        </div>
+        <div id="logincontainer">
+            <div class="logincontainer_horizontal" id="logincontainer_horizontal">
+                <table class="containertable">
+                    <tr>
+                        <th class="left">
+                            <table class="lefttable">
+                                <tr class="facebook">
+                                    <th>
+                                        <a onclick="loginViaSocial('Facebook');">
+                                            <img src="socialicons/facebook.png">
+                                            <div class="en">Login with Facebook</div>
+                                            <div class="de">Anmelden mit Facebook</div>
+                                        </a>
+                                    </th>
+                                </tr>
+                                <tr class="instagram">
+                                    <th>
+                                        <a onclick="loginViaSocial('Instagram');">
+                                            <img src="socialicons/instagram.png">
+                                            <div class="en">Login with Instagram</div>
+                                            <div class="de">Anmelden mit Instagram</div>
+                                        </a>
+                                    </th>
+                                </tr>
+                                <tr class="twitter">
+                                    <th>
+                                        <a onclick="loginViaSocial('Twitter');">
+                                            <img src="socialicons/twitter.png">
+                                            <div class="en">Login with Twitter</div>
+                                            <div class="de">Anmelden mit Twitter</div>
+                                        </a>
+                                    </th>
+                                </tr>
+                                <tr class="google">
+                                    <th>
+                                        <a onclick="loginViaSocial('Google');">
+                                            <img src="socialicons/google-plus.png">
+                                            <div class="en">Login with Google+</div>
+                                            <div class="de">Anmelden mit Google+</div>
+                                        </a>
+                                    </th>
+                                </tr>
+                            </table>
+                        </th>
+                        <th class="center">
+                            <table class="centertable">
+                                <tr class="topline">
+                                    <th>
+                                        <div></div>
+                                    </th>
+                                </tr>
+                                <tr class="centercircle">
+                                    <th>
+                                        <div>
+                                            <span class="en">OR</span>
+                                            <span class="de">ODER</span>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr class="bottomline">
+                                    <th>
+                                        <div></div>
+                                    </th>
+                                </tr>
+                            </table>
+                        </th>
+                        <th class="right">
+                            <table class="righttable">
+                                <tr class="caption">
+                                    <th>
+                                        <span class="en">Sign in manually</span>
+                                        <span class="de">Anmelden</span>
+                                    </th>
+                                </tr>
+                                <tr class="username">
+                                    <th>
+                                        <input class="en usernameinput" id="usernameinputenh" type="text" placeholder="Username or email" onclick='backToDefault("usernameinput")'
+                                            oninput='sync("usernameinputenh", "usernameinputenv")'>
+                                        <input class="de usernameinput" id="usernameinputdeh" type="text" placeholder="Nutzername oder E-Mail" onclick='backToDefault("usernameinput")'
+                                            oninput='sync("usernameinputdeh", "usernameinputdev")'>
+                                    </th>
+                                </tr>
+                                <tr class="password">
+                                    <th>
+                                        <input class="en passwordinput" id="passwordinputenh" type="password" placeholder="Password" onclick='backToDefault("passwordinput")'
+                                            oninput='sync("passwordinputenh", "passwordinputenv")'>
+                                        <input class="de passwordinput" id="passwordinputdeh" type="password" placeholder="Passwort" onclick='backToDefault("passwordinput")'
+                                            oninput='sync("passwordinputdeh", "passwordinputdev")'>
+                                    </th>
+                                </tr>
+                                <tr class="buttonrow1">
+                                    <th>
+                                        <input type="checkbox" id="checkboxh" style="cursor:pointer" class="checkbox" checked onclick='syncCB("checkboxh","checkboxv")'>
+                                        <span class="en">Remember me</span>
+                                        <span class="de">Merken</span>
+                                        <a style="cursor:pointer" onclick="login();">LOGIN</a>
+                                    </th>
+                                </tr>
+                                <tr class="buttonrow2">
+                                    <th>
+                                        <a class="register" style="cursor:pointer" onclick='link("register/register.html");'>
+                                            <span class="en">Register now</span>
+                                            <span class="de">Registrieren</span>
+                                        </a>
+                                        <span>|</span>
+                                        <a class="forgotpasswort" style="cursor:pointer" onclick="openPasswordDialog();">
+                                            <span class="en">Forgot password?</span>
+                                            <span class="de">Passwort vergessen?</span>
+                                        </a>
+                                    </th>
+                                </tr>
+                            </table>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div class="logincontainer_vertical" id="logincontainer_vertical">
+                <table class="containertable">
+                    <tr class="top">
+                        <th>
+                            <div class="wrapper">
+                                <table class="righttable">
+                                    <tr class="caption">
+                                        <th>
+                                            <span class="en">Sign in manually</span>
+                                            <span class="de">Anmelden</span>
+                                        </th>
+                                    </tr>
+                                    <tr class="username">
+                                        <th>
+                                            <input class="en usernameinput" id="usernameinputenv" type="text" placeholder="Username or email" onclick='backToDefault("usernameinput")'
+                                                oninput='sync("usernameinputenv", "usernameinputenh")'>
+                                            <input class="de usernameinput" id="usernameinputdev" type="text" placeholder="Nutzerame oder E-Mail" onclick='backToDefault("usernameinput")'
+                                                oninput='sync("usernameinputdev", "usernameinputdeh")'>
+                                        </th>
+                                    </tr>
+                                    <tr class="password">
+                                        <th>
+                                            <input class="en passwordinput" id="passwordinputenv" type="password" placeholder="Password" onclick='backToDefault("passwordinput")'
+                                                oninput='sync("passwordinputenv", "passwordinputenh")'>
+                                            <input class="de passwordinput" id="passwordinputdev" type="password" placeholder="Passwort" onclick='backToDefault("passwordinput")'
+                                                oninput='sync("passwordinputdev", "passwordinputdeh")'>
+                                        </th>
+                                    </tr>
+                                    <tr class="buttonrow1">
+                                        <th>
+                                            <input type="checkbox" id="checkboxv" style="cursor:pointer" class="checkbox" checked onclick='syncCB("checkboxv","checkboxh")'>
+                                            <span class="en">Remember me</span>
+                                            <span class="de">Merken</span>
+                                            <a style="cursor:pointer" onclick="login();">LOGIN</a>
+                                        </th>
+                                    </tr>
+                                    <tr class="buttonrow2">
+                                        <th>
+                                            <a class="register" style="cursor:pointer" onclick='link("register/register.html");'>
+                                                <span class="en">Register now</span>
+                                                <span class="de">Registrieren</span>
+                                            </a>
+                                            <span>|</span>
+                                            <a class="forgotpasswort" style="cursor:pointer" onclick="openPasswordDialog();">
+                                                <span class="en">Forgot password?</span>
+                                                <span class="de">Passwort vergessen?</span>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr class="middle">
+                        <th>
+                            <div class="wrapper">
+                                <table class="centertable">
+                                    <tr>
+                                        <th class="left">
+                                            <div></div>
+                                        </th>
+                                        <th class="center">
+                                            <div>
+                                                <span class="en">OR</span>
+                                                <span class="de">ODER</span>
+                                            </div>
+                                        </th>
+                                        <th class="right">
+                                            <div></div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr class="bottom">
+                        <th>
+                            <div class="wrapper">
+                                <table class="lefttable">
+                                    <tr class="facebook">
+                                        <th>
+                                            <a onclick="loginViaSocial('Facebook');">
+                                                <img src="socialicons/facebook.png">
+                                                <div class="en">Login with Facebook</div>
+                                                <div class="de">Anmelden mit Facebook</div>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                    <tr class="instagram">
+                                        <th>
+                                            <a onclick="loginViaSocial('Instagram');">
+                                                <img src="socialicons/instagram.png">
+                                                <div class="en">Login with Instagram</div>
+                                                <div class="de">Anmelden mit Instagram</div>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                    <tr class="twitter">
+                                        <th>
+                                            <a onclick="loginViaSocial('Twitter');">
+                                                <img src="socialicons/twitter.png">
+                                                <div class="en">Login with Twitter</div>
+                                                <div class="de">Anmelden mit Twitter</div>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                    <tr class="google">
+                                        <th>
+                                            <a onclick="loginViaSocial('Google');">
+                                                <img src="socialicons/google-plus.png">
+                                                <div class="en">Login with Google+</div>
+                                                <div class="de">Anmelden mit Google+</div>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="navpoints">
+            <i class="material-icons" style="cursor:pointer" onclick='link("../index.html");'>&#xE40C;</i>
+            <i class="material-icons" style="cursor:pointer" onclick='link("../match/match.html");'>&#xE40C;</i>
+            <i class="material-icons" style="cursor:pointer" onclick='link("../leaderboard/leaderboard.html");'>&#xE40C;</i>
+            <i class="material-icons" style="cursor:pointer" onclick='link("login.html");'>&#xE3FA;</i>
+        </div>
+    </main>
+    <div class="arrow_left">
+        <i class="material-icons" style="cursor:pointer" onclick='link("../leaderboard/leaderboard.html");'>&#xE408;</i>
+    </div>
+    <footer class="footer">
+        <div class="center">
+            <ul class="footersections">
+                <li>
+                    <ul class="footerbuttons">
+                        <li>
+                            <a href="#privacypolicy">
+                                <span class="en">Privacy Policy</span>
+                                <span class="de">Datenschutz</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#termsofuse">
+                                <span class="en">Terms of Use</span>
+                                <span class="de">Nutzungsbedingungen</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact">
+                                <span class="en">Contact</span>
+                                <span class="de">Impressum</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#help">
+                                <span class="en">Help</span>
+                                <span class="de">Hilfe</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="footersocial">
+                        <li>
+                            <a href="https://www.facebook.com" target="_blank">
+                                <img src="../social_icons/facebook.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com" target="_blank">
+                                <img src="../social_icons/instagram.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.snapchat.com" target="_blank">
+                                <img src="../social_icons/snapchat.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com" target="_blank">
+                                <img src="../social_icons/twitter.png">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="footercopyright">
+                    <span class="en">Copyright &copy; 2017 Nico Gie&szlig;mann. All rights reserved.</span>
+                    <span class="de">Copyright &copy; 2017 Nico Gie&szlig;mann. Alle Rechte vorbehalten.</span>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <script src="../js/langswitch.js"></script>
+    <script src="js/cookieload.js"></script>
+    <script src="js/password.js"></script>
+    <script>
+        if (lang == LANG_EN) {
+            document.getElementById("passcodeinputfield").placeholder = "Enter your code...";
+            document.getElementById("passnewpassfield").placeholder = "Please enter your new password...";
+        }
+    </script>
+</body>
+
+</html>

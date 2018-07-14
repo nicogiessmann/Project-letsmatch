@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta id="myViewport" name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function () {
+            if (window.innerWidth <= 505) {
+                var mvp = document.getElementById('myViewport');
+                mvp.setAttribute('content', 'width=505');
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="stylemobile.css">
+    <link rel="stylesheet" href="styledesktop.css" media="only screen and (min-width: 1200px)">
+    <script src="../js/dropdown.js"></script>
+    <script src="../js/urlparam.js"></script>
+    <script src="../js/linker.js"></script>
+    <script src="../js/opener.js"></script>
+    <title>Let'sMatch &#8729; Bestenliste</title>
+    <script>
+        if (lang == LANG_EN) {
+            document.getElementsByTagName("title")[0].innerHTML = "Let'sMatch &#8729; Leaderboard";
+        }
+    </script>
+     <!--Cookie notification-->
+     <link rel="stylesheet" type="text/css" href="../cookie.css"/>
+     <script src="../js/cookie.js"></script>
+     <script>
+         window.addEventListener("load", function () {
+             var background_color = "#ffffff";
+             var text_color = "#3a3a3a";
+             var button_color = "#e36165";
+             var button_text_color = "#ffffff";
+             var text = undefined;
+             if(lang==LANG_EN){
+                 text = "Let'sMatch uses cookies to provide essential features. Disabling cookies will make this website not work anymore.";
+             }
+             else{
+                 text = "Let'sMatch benutzt Cookies um wichtige Funktionen zur Verfügung zu stellen. Bei Deaktivierung von Cookies wird die Webseite nicht mehr funktionieren.";
+             }
+             window.cookieconsent.initialise({
+                 "palette": {
+                     "popup": {
+                         "background": background_color,
+                         "text": text_color
+                     },
+                     "button": {
+                         "background": button_color,
+                         "text": button_text_color
+                     }
+                 },
+                 "content": {
+                     "message": text,
+                     "href": "juristic/cookie.html"
+                 }
+             })
+         });
+     </script>
+</head>
+
+<body onresize="centerTables(); checkResolution(); responsiveView();">
+    <div class="stylesheet_check" id="stylesheet_check"></div>
+    <header class="topnav" id="topnav">
+        <div class="topnav_overflow" id="topnav_overflow">
+            <div class="navddicon" id='navddicon' onclick="navddOnClick();">&#9776;</div>
+            <div class="homebutton">
+                <a onclick="link('../index.html');">
+                    <img src="../logo.png">
+                </a>
+            </div>
+            <div class="centercontent">
+                <div class="wrapper">
+                    <a id="match" onclick="link('../match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                    <a id="leaderboard" onclick="link('leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </div>
+            </div>
+            <div class="rightwrapper" id="rightwrapper">
+                <div class="profilebutton">
+                    <a id="profile" onclick="link('../profile/login.html');">
+                        <img src="../image.png" id="rightwrapperprofileimg">
+                        <span class="en profilelabel">Profile</span>
+                        <span class="de profilelabel">Profil</span>
+                    </a>
+                </div>
+                <div class="langddicon" onclick="langddOnClick();">
+                    <i class="material-icons" id='langddicon_one'>&#xE8E2;</i>
+                    <i class="material-icons" id='langddicon_two'>&#xE313;</i>
+                </div>
+            </div>
+            <div class='navdd' id='navdd'>
+                <p>
+                    <a id="dmatch" onclick="link('../match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                </p>
+                <p>
+                    <a id="dleaderboard" onclick="link('leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </p>
+                <p>
+                    <a id="dprofile" onclick="link('../profile/login.html');">
+                        <img src="../image.png" id="navddprofileimg">
+                        <span class="en profilelabel">Profile</span>
+                        <span class="de profilelabel">Profil</span>
+                    </a>
+                </p>
+            </div>
+            <div class="langdd" id='langdd'>
+                <p class="ger" id="langddger" onclick="changeLang('ger');">
+                    <img src="../flags/flag_ger.png">
+                    <p1>Deutsch</p1>
+                </p>
+                <p class="eng" id="langddeng" onclick="changeLang('eng');">
+                    <img src="../flags/flag_us.png">
+                    <p1>English</p1>
+                </p>
+            </div>
+            <div class="designline_left" id="designline_left"></div>
+            <div class="designline_right" id="designline_right"></div>
+        </div>
+    </header>
+    <div class="profile_view" id="profile_view">
+        <div class="topbar">
+            <i title="Hide" class="material-icons" id="icon_hide" onclick="profile_view_close();">&#xE888;</i>
+            <script>
+                if (lang == LANG_DE) {
+                    document.getElementById("icon_hide").title = "Schließen";
+                }
+            </script>
+        </div>
+        <div class="profileimage">
+            <img id="profileimage" src="../image.png">
+        </div>
+        <div class="name">
+            <div class="username" id="username"></div>
+        </div>
+        <div class="description">
+            <div id="descriptioncontent" class="descriptioncontent"> </div>
+        </div>
+        <div class="stats">
+            <div class="score">
+                <div class="container">
+                    <span class="en">Score: </span>
+                    <span class="de">Punkte: </span>
+                    <br>
+                    <span class="number" id="points"></span>
+                </div>
+            </div>
+            <div class="rank">
+                <div class="container">
+                    <span class="en">Rank: </span>
+                    <span class="de">Platz: </span>
+                    <br>
+                    <span class="number" id="rank"></span>
+                </div>
+            </div>
+        </div>
+        <div class="link">
+            <div class="caption">
+                <span class="en">Match-Link (Share and match this user!):</span>
+                <span class="de">Match-Link (Teile und matche diesen Nutzer!):</span>
+            </div>
+            <div class="linkcontainer">
+                <a id="matchlink"></a>
+                <i class="material-icons" title="Copy" onclick="copyToClipboard();">&#xE14D;</i>
+            </div>
+        </div>
+    </div>
+    <div class="dropdown_background" id="dropdown_background"></div>
+    <main class="main">
+        <div class="home">
+            <div class="searchformatter">
+                <div class="searchcontainer" id="searchcontainer">
+                    <input id="searchbar" type="text" placeholder="Search for matchers..." onclick="loadExamples();" oninput="loadExamples();"
+                        autocomplete="off" autocorrect="off" autocapitalize="off">
+                    <script>
+                        if (lang == LANG_DE) {
+                            document.getElementById("searchbar").placeholder = "Suche nach Matchern...";
+                        }
+                    </script>
+                    <div class="searcharrow" id="searcharrow"></div>
+                    <div class="useroffers" id="offerbox">
+                        <div class="extraborder" id="useroffers"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="table_outerbox" id="table_outerbox">
+                <div class="table_formatter" id="table_formatter">
+                    <div class="table_female table" id="table_female">
+                        <div class="headerstripe">
+                            <span class="en">Female</span>
+                            <span class="de">Weiblich</span>
+                        </div>
+                        <div class="headerdesc">
+                            <div class="place">
+                                <span class="en">Place</span>
+                                <span class="de">Platz</span>
+                            </div>
+                            <div class="username">
+                                <span class="en">Username</span>
+                                <span class="de">Nutzername</span>
+                            </div>
+                            <div class="points">
+                                <span class="en">Points</span>
+                                <span class="de">Punkte</span>
+                            </div>
+                        </div>
+                        <div class="fixed_content">
+                            <div class="table_content">
+                                <div class="loading">
+                                    <span class="en">Loading...</span>
+                                    <span class="de">L&auml;dt...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="servererror">
+                            <div class="wrapper">
+                                <div class="errorcontainer">
+                                    <span class="errortitle de">Serverprobleme:</span>
+                                    <span class="errortitle en">Server-problems:</span>
+                                    <br>
+                                    <span class="errormessage de">Bitte komm sp&auml;ter nocheinmal vorbei</span>
+                                    <span class="errormessage en">Come back later</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_male table" id="table_male">
+                        <div class="headerstripe">
+                            <span class="en">Male</span>
+                            <span class="de">M&auml;nnlich</span>
+                        </div>
+                        <div class="headerdesc">
+                            <div class="place">
+                                <span class="en">Place</span>
+                                <span class="de">Platz</span>
+                            </div>
+                            <div class="username">
+                                <span class="en">Username</span>
+                                <span class="de">Nutzername</span>
+                            </div>
+                            <div class="points">
+                                <span class="en">Points</span>
+                                <span class="de">Punkte</span>
+                            </div>
+                        </div>
+                        <div class="fixed_content">
+                            <div class="table_content">
+                                <div class="loading">
+                                    <span class="en">Loading...</span>
+                                    <span class="de">L&auml;dt...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="servererror">
+                            <div class="wrapper">
+                                <div class="errorcontainer">
+                                    <span class="errortitle de">Serverprobleme:</span>
+                                    <span class="errortitle en">Server-problems:</span>
+                                    <br>
+                                    <span class="errormessage de">Bitte komm sp&auml;ter nocheinmal vorbei</span>
+                                    <span class="errormessage en">Come back later</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_friendlist table" id="table_friendlist">
+                        <div class="headerstripe">
+                            <span class="en">Friendlist</span>
+                            <span class="de">Freundesliste</span>
+                        </div>
+                        <div class="headerdesc">
+                            <div class="place">
+                                <span class="en">Place</span>
+                                <span class="de">Platz</span>
+                            </div>
+                            <div class="username">
+                                <span class="en">Username</span>
+                                <span class="de">Nutzername</span>
+                            </div>
+                            <div class="points">
+                                <span class="en">Points</span>
+                                <span class="de">Punkte</span>
+                            </div>
+                        </div>
+                        <div class="fixed_content">
+                            <div class="table_content">
+                                <div class="loading">
+                                    <span class="en">Loading...</span>
+                                    <span class="de">L&auml;dt...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="servererror">
+                            <div class="wrapper">
+                                <div class="errorcontainer">
+                                    <span class="errortitle de">Nicht angemeldet:</span>
+                                    <span class="errortitle en">Not logged in:</span>
+                                    <br>
+                                    <span class="errormessage de">Logge dich ein, um dich mit deinen Freunden zu vergleichen</span>
+                                    <span class="errormessage en">Log in to compare your friends</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notification_noentries">
+                            <div class="wrapper">
+                                <div class="noentriescontainer">
+                                    <span class="noentriestitle de">Keine Eintr&auml;ge:</span>
+                                    <span class="noentriestitle en">No entries:</span>
+                                    <br>
+                                    <span class="noentriesmessage de">F&uuml;ge Freunde hinzu, um dich mit ihnen zu matchen</span>
+                                    <span class="noentriesmessage en">Add friends to match with them</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_location table" id="table_location">
+                        <div class="headerstripe">
+                            <div class="headertitle">
+                                <span class="en">Around you</span>
+                                <span class="de">In deiner N&auml;he</span>
+                            </div>
+                            <div class="locationupdate">
+                                <span class="en">Update location:</span>
+                                <span class="de">Standort akualisieren:</span>
+                                <i class="material-icons">&#xE863;</i>
+                            </div>
+                        </div>
+                        <div class="headerdesc">
+                            <div class="place">
+                                <span class="en">Place</span>
+                                <span class="de">Platz</span>
+                            </div>
+                            <div class="username">
+                                <span class="en">Username</span>
+                                <span class="de">Nutzername</span>
+                            </div>
+                            <div class="points">
+                                <span class="en">Points</span>
+                                <span class="de">Punkte</span>
+                            </div>
+                        </div>
+                        <div class="fixed_content">
+                            <div class="table_content">
+                                <div class="loading">
+                                    <span class="en">Loading...</span>
+                                    <span class="de">L&auml;dt...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="servererror">
+                            <div class="wrapper">
+                                <div class="errorcontainer">
+                                    <span class="errortitle de">Nicht angemeldet:</span>
+                                    <span class="errortitle en">Not logged in:</span>
+                                    <br>
+                                    <span class="errormessage de">Logge dich ein, um andere Matcher in deiner Umgebung zu vergleichen</span>
+                                    <span class="errormessage en">Log in to compare matchers nearby</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="background"></div>
+        <div class="navpoints">
+            <i class="material-icons" onclick="link('../index.html');">&#xE40C;</i>
+            <i class="material-icons" onclick='link("../match/match.html");'>&#xE40C;</i>
+            <i class="material-icons" onclick='link("leaderboard.html");'>&#xE3FA;</i>
+            <i class="material-icons" onclick='link("../profile/login.html");'>&#xE40C;</i>
+        </div>
+    </main>
+    <div class="arrow_left">
+        <i class="material-icons" onclick="link('../match/match.html');">&#xE408;</i>
+    </div>
+    <div class="arrow_right">
+        <i class="material-icons" onclick='link("../profile/login.html");'>&#xE409;</i>
+    </div>
+    <footer class="footer">
+        <div class="left"></div>
+        <div class="center">
+            <ul class="footersections">
+                <li>
+                    <ul class="footerbuttons">
+                        <li>
+                            <a href="#privacypolicy">
+                                <span class="en">Privacy Policy</span>
+                                <span class="de">Datenschutz</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#termsofuse">
+                                <span class="en">Terms of Use</span>
+                                <span class="de">Nutzungsbedingungen</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact">
+                                <span class="en">Contact</span>
+                                <span class="de">Kontakt</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#help">
+                                <span class="en">Help</span>
+                                <span class="de">Hilfe</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="footersocial">
+                        <li>
+                            <a href="https://www.facebook.com" target="_blank">
+                                <img src="../social_icons/facebook.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com" target="_blank">
+                                <img src="../social_icons/instagram.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.snapchat.com" target="_blank">
+                                <img src="../social_icons/snapchat.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com" target="_blank">
+                                <img src="../social_icons/twitter.png">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="footercopyright">
+                    <span class="en">Copyright &copy; 2017 Nico Gie&szlig;mann. All rights reserved.</span>
+                    <span class="de">Copyright &copy; 2017 Nico Gie&szlig;mann. Alle Rechte vorbehalten.</span>
+                </li>
+            </ul>
+        </div>
+        <div class="right"></div>
+    </footer>
+    <script src="../js/langswitch.js"></script> -
+    <script src="js/tableformatter.js"></script>
+    <script src="js/cookieload.js"></script>
+    <script src="js/contentloader.js"></script>
+    <script src="js/profileformatter.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta id="myViewport" name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function () {
+            if (window.innerWidth <= 505) {
+                var mvp = document.getElementById('myViewport');
+                mvp.setAttribute('content', 'width=505');
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="stylemobile.css">
+    <link rel="stylesheet" href="styledesktop.css" media="only screen and (min-width: 1200px)">
+    <link rel="stylesheet" href="font-awesome.min.css">
+
+    <script src="../../js/dropdown.js"></script>
+    <script src="../../js/urlparam.js"></script>
+    <script src="../../js/linker.js"></script>
+    <script src="../../js/opener.js"></script>
+
+    <title>Let'sMatch &#8729; Profil</title>
+    <script>
+        if (lang == LANG_EN) {
+            document.getElementsByTagName("title")[0].innerHTML = "Let'sMatch &#8729; Profile";
+        }
+    </script>
+    <!--Cookie notification-->
+    <link rel="stylesheet" type="text/css" href="../../cookie.css" />
+    <script src="../../js/cookie.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            var background_color = "#ffffff";
+            var text_color = "#3a3a3a";
+            var button_color = "#e36165";
+            var button_text_color = "#ffffff";
+            var text = undefined;
+            if (lang == LANG_EN) {
+                text = "Let'sMatch uses cookies to provide essential features. Disabling cookies will make this website not work anymore.";
+            }
+            else {
+                text = "Let'sMatch benutzt Cookies um wichtige Funktionen zur Verfügung zu stellen. Bei Deaktivierung von Cookies wird die Webseite nicht mehr funktionieren.";
+            }
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": background_color,
+                        "text": text_color
+                    },
+                    "button": {
+                        "background": button_color,
+                        "text": button_text_color
+                    }
+                },
+                "content": {
+                    "message": text,
+                    "href": "juristic/cookie.html"
+                }
+            })
+        });
+    </script>
+</head>
+
+<body onresize="checkResolution();">
+    <div class="stylesheet_check" id="stylesheet_check"></div>
+    <header class="topnav" id="topnav">
+        <div class="topnav_overflow" id="topnav_overflow">
+            <div class="navddicon" id='navddicon' onclick="navddOnClick();">&#9776;</div>
+            <div class="homebutton">
+                <a onclick="link('../../index.html');">
+                    <img src="../../logo.png">
+                </a>
+            </div>
+            <div class="centercontent">
+                <div class="wrapper">
+                    <a id="match" onclick="link('../../match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                    <a id="leaderboard" onclick="link('../../leaderboard/leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </div>
+            </div>
+            <div class="rightwrapper" id="rightwrapper">
+                <div class="profilebutton">
+                    <a id="profile" onclick="link('profile.html');">
+                        <img src="../../image.png" id="rightwrapperprofileimg">
+                        <span class="en profilelabel">Profile</span>
+                        <span class="de profilelabel">Profil</span>
+                    </a>
+                </div>
+                <div class="langddicon" onclick="langddOnClick();">
+                    <i class="material-icons" id='langddicon_one'>&#xE8E2;</i>
+                    <i class="material-icons" id='langddicon_two'>&#xE313;</i>
+                </div>
+            </div>
+            <div class='navdd' id='navdd'>
+                <p>
+                    <a id="dmatch" onclick="link('../../match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                </p>
+                <p>
+                    <a id="dleaderboard" onclick="link('../../leaderboard/leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </p>
+                <p>
+                    <a id="dprofile" onclick="link('profile.html');">
+                        <img src="../../image.png" id="navddprofileimg">
+                        <span class="en profilelabel">Profile</span>
+                        <span class="de profilelabel">Profil</span>
+                    </a>
+                </p>
+            </div>
+            <div class="langdd" id='langdd'>
+                <p class="ger" id="langddger" onclick="changeLang('ger');">
+                    <img src="../../flags/flag_ger.png">
+                    <p1>Deutsch</p1>
+                </p>
+                <p class="eng" id="langddeng" onclick="changeLang('eng');">
+                    <img src="../../flags/flag_us.png">
+                    <p1>English</p1>
+                </p>
+            </div>
+            <div class="designline_left" id="designline_left"></div>
+            <div class="designline_right" id="designline_right"></div>
+        </div>
+    </header>
+    <div class="dropdown_background" id="dropdown_background"></div>
+    <main class="main">
+        <div class="background"></div>
+        <div class="profilecontainer">
+
+            <div class="topbar" id="topbar">
+                <i title="Matchability" class="material-icons" id="iconmatchable" onclick="enableMatch();">&#xE061;</i>
+                <i title="Reload Site" class="material-icons" id="iconrefresh" onclick="refreshSite();">&#xE863;</i>
+                <i title="Logout" class="material-icons" id="iconlogout" onclick="lockout();">&#xE888;</i>
+            </div>
+
+            <div class="email" id="emaildialog">
+                <i onclick="hideEmailDialog();" class="material-icons back">&#xE317;</i>
+                <div class="heading">
+                    <span class="en">Change email</span>
+                    <span class="de">E-Mail &auml;ndern</span>
+                </div>
+                <div class="password">
+                    <span class="en">Enter your password:</span>
+                    <span class="de">Passwort eingeben:</span>
+                    <br>
+                    <input class="passwordinput" id="passwordinput" type="password" maxlength="20" oninput="checkPassInput();" placeholder="Enter your password...">
+                    <i class="material-icons oldpassicon" id="passicon">&#xE876;</i>
+                </div>
+                <div class="newemail" id="newemail">
+                    <span class="en">Enter new email:</span>
+                    <span class="de">Neue E-Mail eingeben:</span>
+                    <input class="emailinput" id="emailinput" type="email" maxlength="50" placeholder="Enter your new email..." onclick="IDbackToDefault('emailinput');">
+                    <div class="apply" onclick="checkEmailInput();">
+                        <span class="en">Change email</span>
+                        <span class="de">E-Mail &auml;ndern</span>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            <div class="number" id="numberdialog">
+                <i onclick="hideNumberDialog();");' class="material-icons back">&#xE317</i>
+                <div class="heading">
+                    <span class="en">Change WhatsApp-Number</span>
+                    <span class="de">WhatsApp-Nummer &auml;ndern</span>
+                </div>
+                <div class="verification">
+                    <div class="vcaption">
+                        <span class="en">Enter the last 4 digits of your old WhatsApp-Number to verify yourself:</span>
+                        <span class="de">Geben sie die letzten 4 Stellen ihrer alten WhatsApp-Nummer zur &Uuml;berpr&uuml;fung ein:</span>
+                    </div>
+                    <div class="firstdigits">
+                        <div class="firstdigitsbox" id="firstdigitsbox">
+                            <span class="firstdigitsnbr" id="firstdigits">error</span>
+                        </div>
+                    </div>
+                    <div class="lastdigits">
+                        <input class="lastdigitsinput" id="lastdigitsinput" type="text" maxlength="4" placeholder="xxxx" oninput="checkLastDigits();">
+                        <i class="material-icons lastdigiticon" id="lastdigiticon"></i>
+                    </div>
+                    <div class="newnumber">
+                        <input class="newnumberinput" id="newnumberinput" type="text" placeholder="Enter your new WhatsApp-Number here..." maxlength="20" oninput="checkNewNumber();">
+                        <i class="material-icons newnumbericon" id="newnumbericon"></i>
+                    </div>
+                    <div class="confirm">
+                        <div class="confirmbtn" id="confirmbtn" onclick="updateNumber(); hideNumberDialog();">
+                            <span class="en">Confirm new Number</span>
+                            <span class="de">Neue Nummer best&auml;tigen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        -->
+
+            <div class="pass" id="passdialog">
+                <i onclick="hidePassDialog();" class="material-icons back">&#xE317</i>
+                <div class="heading">
+                    <span class="en">Change Password</span>
+                    <span class="de">Passwort &auml;ndern</span>
+                </div>
+                <div class="verification">
+                    <div class="vcaption">
+                        <span class="en">Enter your old password to verify yourself:</span>
+                        <span class="de">Gib dein altes Passwort zur &Uuml;berpr&uuml;fung ein:</span>
+                    </div>
+                    <div class="oldpass">
+                        <input class="oldpassinput" id="oldpassinput" type="password" placeholder="Enter your old password here..." oninput="checkOldPassInput();">
+                        <i class="material-icons oldpassicon" id="oldpassicon">&#xE876;</i>
+                    </div>
+                </div>
+                <div class="newpass" id="newpass">
+                    <div class="newpass_caption">
+                        <span class="en">Enter your new password:</span>
+                        <span class="de">Gib dein neues Passwort ein:</span>
+                    </div>
+                    <input class="newpassinput" id="newpassinput" type="password" placeholder="Enter your new password here..." oninput="updateNewPassIcon();"
+                        maxlength="20">
+                    <div class="strengthcontainer">
+                        <div class="progress" id="passwortstrength"></div>
+                    </div>
+                </div>
+                <div class="confirm" id="confirm">
+                    <div class="confirmbtn" onclick="updatePass(); hidePassDialog();">
+                        <span class="en">Confirm new Password</span>
+                        <span class="de">Neues Passwort best&auml;tigen</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="profiledialog">
+                <div class="profileimage" style="cursor:pointer">
+                    <img id="profileimage" src="image.png">
+                    <input type="file" name="file" id="file" class="inputfile input" onchange="displayImage();">
+                    <label title="upload image" for="file" class="label input">
+                        <div class="container">
+                            <i class="material-icons">&#xE439;</i>
+                        </div>
+                    </label>
+                </div>
+                <div class="name">
+                    <span id="nickname" class="show"></span>
+                    <input class="nicknamechangeinput input" id="nicknamechange" type="text" placeholder="" oninput="usernamevalidation();">
+                    <i class="material-icons nicknamechangeicon input" id="nicknameicon">&#xE876;</i>
+                </div>
+                <div class="description" id="descriptionbox">
+                    <span id="descriptionshow" class="descriptionshow show"></span>
+                    <textarea maxlength="144" class="descriptioninput input" id="descriptioninput" placeholder=""></textarea>
+                </div>
+                <div class="stats" id="stats">
+                    <div class="score">
+                        <div class="container">
+                            <span class="en">Score: </span>
+                            <span class="de">Punkte: </span>
+                            <span id="points"></span>
+                        </div>
+                    </div>
+                    <div class="rank">
+                        <div class="container">
+                            <span class="en">Rank: </span>
+                            <span class="de">Platz: </span>
+                            <span id="rank"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="link" id="link">
+                        <div class="caption">
+                            <span class="en">Match-Link (Share and let friends match you):</span>
+                            <span class="de">Match-Link (Teile und lasse Freunde dich matchen):</span>
+                        </div>
+                        <div class="linkcontainer" title="Copy link">
+                            <a id="matchlink">www.matchme.com/match.html?mode=1vsr&user=nickname</a>
+                            <i class="material-icons" onclick="copyToClipboard();" id="copyicon">&#xE14D;</i>
+                        </div>
+                    </div>
+
+                    <div class="input genderselector">
+                        <div class="caption">
+                            <span class="en">Matching gender:</span>
+                            <span class="de">Matching Geschlecht:</span>
+                        </div>
+                        <div class="dropdown">
+                            <div onclick="openDropdown();" class="dropbtn" id="dropbtn">
+                                <span class="currentGenderEntry" id="genderbutton">Test</span>
+                            </div>
+                            <div id="myDropdown" class="dropdown-content">
+                                <div class="en" onclick="femaleClicked();">
+                                    <i class="fa fa-venus"></i>
+                                    <span>female</span>
+                                </div>
+                                <div class="de" onclick="femaleClicked();">
+                                    <i class="fa fa-venus"></i>
+                                    <span>weiblich</span>
+                                </div>
+                                <div class="en" onclick="maleClicked();">
+                                    <i class="fa fa-mars"></i>
+                                    <span>male</span>
+                                </div>
+                                <div class="de" onclick="maleClicked();">
+                                    <i class="fa fa-mars"></i>
+                                    <span>m&auml;nnlich</span>
+                                </div>
+                                <div class="en" onclick="nothingClicked();">
+                                    <i class="material-icons">&#xE888;</i>
+                                    <span>not selected</span>
+                                </div>
+                                <div class="de" onclick="nothingClicked();">
+                                    <i class="material-icons">&#xE888;</i>
+                                    <span>keine Angabe</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input personal">
+                        <div class="separator"></div>
+                        <div class="left">
+                            <div class="en">Personal data:</div>
+                            <div class="de">Pers&ouml;nliche Daten:</div>
+                        </div>
+                        <div class="right">
+                            <!--
+                            <div class="button" onclick="showNumberDialog();">
+                                <span class="en">Change WhatsApp-Number</span>
+                                <span class="de">WhatsApp-Nummer  &auml;ndern</span>
+                            </div>
+                        -->
+                            <div class="button" onclick="showEmailDialog();">
+                                <span class="en">Change email</span>
+                                <span class="de">E-Mail &auml;ndern</span>
+                            </div>
+                            <div class="button" onclick="showPassDialog();">
+                                <span class="en">Change password</span>
+                                <span class="de">Passwort &auml;ndern</span>
+                            </div>
+                        </div>
+                        <div class="separator"></div>
+                    </div>
+                </div>
+
+                <div class="settings">
+                    <div class="button" onclick="switchModes()" style="cursor:pointer">
+                        <i class="material-icons">&#xE150;</i>
+                        <span class="input">
+                            <span class="en">Save profile data</span>
+                            <span class="de">Profildaten speichern</span>
+                        </span>
+                        <span class="show">
+                            <span class="en">Change profile data</span>
+                            <span class="de">Profildaten &auml;ndern</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="navpoints">
+            <i class="material-icons" onclick='link("../../index.html");'>&#xE40C;</i>
+            <i class="material-icons" onclick='link("../../match/match.html");'>&#xE40C;</i>
+            <i class="material-icons" onclick='link("../../leaderboard/leaderboard.html");'>&#xE40C;</i>
+            <i class="material-icons" onclick='link("profile.html");'>&#xE3FA;</i>
+        </div>
+        <div class="friendlist_container" id="friendlist_container">
+            <div class="friendlist_container_header">
+                <span class="en">Friendlist</span>
+                <span class="de">Freundesliste</span>
+                <span class="friendscounter" id="friendscounter"></span>
+                <div class="friendlist_container_header_input">
+                    <input id="searchbar" type="text" placeholder="Search for friend..." autocomplete="off" autocorrect="off" autocapitalize="off" oninput="searchbarInput();">
+                    <script>
+                        if(lang==LANG_DE){
+                            document.getElementById("searchbar").placeholder="Suche nach Freund...";
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="friendlist_container_content" id="friendlist_container_content"></div>
+        </div>
+    </main>
+    <div class="arrow_left">
+        <i class="material-icons" onclick='link("../../leaderboard/leaderboard.html");'>&#xE408;</i>
+    </div>
+    <footer class="footer">
+        <div class="center">
+            <ul class="footersections">
+                <li>
+                    <ul class="footerbuttons">
+                        <li>
+                            <a href="#privacypolicy">
+                                <span class="en">Privacy Policy</span>
+                                <span class="de">Datenschutz</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#termsofuse">
+                                <span class="en">Terms of Use</span>
+                                <span class="de">Nutzungsbedingungen</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact">
+                                <span class="en">Contact</span>
+                                <span class="de">Impressum </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#help">
+                                <span class="en">Help</span>
+                                <span class="de">Hilfe</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="footersocial">
+                        <li>
+                            <a href="https://www.facebook.com" target="_blank">
+                                <img src="../../social_icons/facebook.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com" target="_blank">
+                                <img src="../../social_icons/instagram.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.snapchat.com" target="_blank">
+                                <img src="../../social_icons/snapchat.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com" target="_blank">
+                                <img src="../../social_icons/twitter.png">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="footercopyright">
+                    <span class="en">Copyright &copy; 2017 Nico Gie&szlig;mann All rights reserved.</span>
+                    <span class="de">Copyright &copy; 2017 Nico Gie&szlig;mann Alle Rechte vorbehalten.</span>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <script src="../../js/langswitch.js"></script>
+    <script src="js/cookieload.js"></script>
+    <script src="js/settingbutton.js"></script>
+    <script src="js/displayimage.js"></script>
+    <script src="js/usernamevalid.js"></script>
+    <script src="js/features.js"></script>
+    <script src="js/genderhandler.js"></script>
+    <!--<script src="js/numberhandling.js"></script>-->
+    <script>
+        if (lang == LANG_DE) {
+            document.getElementById("emailinput").placeholder = "Neue E-Mail eingeben...";
+            /*
+            document.getElementById("newnumberinput").placeholder = "Neue WhatsApp-Nummer hier eingeben...";
+            */
+            document.getElementById("oldpassinput").placeholder = "Altes Passwort hier eingeben...";
+            document.getElementById("newpassinput").placeholder = "Neues Passwort hier eingeben...";
+            document.getElementById("passwordinput").placeholder = "Passwort eingeben...";
+        }
+    </script>
+    <script src="js/passwortstrength.js"></script>
+    <script src="js/passhandling.js"></script>
+    <script src="js/emailhandling.js"></script>
+</body>
+
+</html>

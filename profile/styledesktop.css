@@ -1,0 +1,354 @@
+.stylesheet_check{
+    display: block;
+}
+.topnav .homebutton {
+    display: block;
+    float: left;
+    text-align: right;
+    width: 35%;
+    height: 60px;
+    margin-left: 0;
+}
+.topnav .centercontent {
+    display: block;
+    width: 30%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    float: left;
+}
+.topnav .centercontent .wrapper {
+    display: inline-block;
+}
+.topnav .centercontent .wrapper a {
+    display: inline-block;
+    font-family: "Roboto-Medium";
+    width: 150px;
+    height: 32px;
+    padding: 8px;
+    margin: 3.2px;
+    margin-top: 6px;
+    text-decoration: none;
+    color: var(--text-color-grey);
+    font-size: 16px;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color .3s;
+    -moz-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color .3s;
+    transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color .3s;
+}
+.topnav .centercontent .wrapper a:hover {
+    background-color: var(--color-light-grey);
+    color: black;
+}
+.topnav .centercontent .wrapper a:hover i{
+    color: black;
+}
+.topnav .centercontent .wrapper a i {
+    font-size: 30px;
+    vertical-align: -10px;
+    padding-right: 8px;
+    color: var(--text-color-grey);
+}
+.topnav .navdd {
+    display: none!important 
+}
+.topnav .navddicon {
+    display: none 
+}
+.topnav .rightwrapper {
+    display: block;
+    float: left;
+    width: 35%;
+}
+.topnav .rightwrapper .profilebutton {
+    display: block;
+    float: left;
+}
+.topnav .rightwrapper .profilebutton a {
+    display: inline-block;
+    min-width: 150px;
+    height: 32px;
+    font-family: "Roboto-Medium";
+    padding: 8px;
+    text-decoration: none;
+    color: var(--color-female-red);
+    font-size: 16px;
+    margin-top: 6px;
+    cursor: pointer;
+    -webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color .3s;
+    -moz-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color .3s;
+    transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color .3s;
+    text-align: center;
+}
+.topnav .rightwrapper .profilebutton a:hover {
+    background-color: var(--color-light-grey);
+    color: black;
+}
+.topnav .rightwrapper .profilebutton a img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-top: -5px;
+    vertical-align: -17px;
+    margin-right: 8px;
+    border: 1px solid var(--color-light-grey);
+}
+.main .passwordDialog{
+    display: none;
+    position: absolute;
+    top: -140px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 280px;
+    width: 450px;
+    background-color: white;
+    -webkit-box-shadow: 0px 14px 17px 2px rgba(0, 0, 0, 0.14);
+    -moz-box-shadow: 0px 14px 17px 2px rgba(0, 0, 0, 0.14);
+    box-shadow: 0px 14px 17px 2px rgba(0, 0, 0, 0.14);
+}
+.main .logincontainer_horizontal {
+    display: inline-block;
+    background-color: white;
+    position: absolute;
+    top: 140px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 608px;
+    height: 400px;
+    -webkit-box-shadow: 0px 14px 17px 2px rgba(0, 0, 0, 0.14);
+    -moz-box-shadow: 0px 14px 17px 2px rgba(0, 0, 0, 0.14);
+    box-shadow: 0px 14px 17px 2px rgba(0, 0, 0, 0.14);
+}
+.main .logincontainer_horizontal .containertable {
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+}
+.main .logincontainer_horizontal .containertable .left {
+    width: 45%;
+    height: 100%;
+    padding: 16px;
+}
+.main .logincontainer_horizontal .containertable .left .lefttable {
+    width: 100%;
+    height: 90%;
+    overflow: hidden;
+}
+.main .logincontainer_horizontal .containertable .left .lefttable tr {
+    width: 100%;
+    height: auto;
+}
+.main .logincontainer_horizontal .containertable .left .lefttable tr th {
+    width: 100%;
+    height: auto;
+}
+.main .logincontainer_horizontal .containertable .left .lefttable tr th a {
+    display: inline-block;
+    width: 240px;
+    height: 48px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 2px;
+    opacity: 0.9;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.14);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.14);
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.14);
+}
+.main .logincontainer_horizontal .containertable .left .lefttable .facebook th a{
+    background-color: #3b5998;
+}
+.main .logincontainer_horizontal .containertable .left .lefttable .instagram th a{
+    background-color: #e1306c;
+}
+.main .logincontainer_horizontal .containertable .left .lefttable .twitter th a{
+    background-color: #1da1f2;
+}
+.main .logincontainer_horizontal .containertable .left .lefttable .google th a{
+    background-color: #db4437;
+}
+
+.main .logincontainer_horizontal .containertable .left .lefttable tr th a:hover{
+    opacity: 1;
+}
+.main .logincontainer_horizontal .containertable .left .lefttable tr th a img {
+    display: inline-block;
+    padding-left: 16px;
+    width: 24px;
+    height: 24px;
+    padding-top: 12px;
+    padding-right: 8px;
+}
+.main .logincontainer_horizontal .containertable .left .lefttable tr th a div {
+    display: inline-block;
+    position: absolute;
+    width: 184px;
+    height: 46px;
+    line-height: 50px;
+    font-size: 12px;
+    font-family: "Roboto-Medium";
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.main .logincontainer_horizontal .containertable .center {
+    width: 10%;
+    height: 100%;
+}
+.main .logincontainer_horizontal .containertable .center .centertable {
+    height: 100%;
+    width: 100%;
+}
+.main .logincontainer_horizontal .containertable .center .centertable .topline th {
+    width: 100%;
+    height: 40%;
+    text-align: center;
+    overflow: hidden;
+}
+.main .logincontainer_horizontal .containertable .center .centertable .topline th div {
+    display: inline-block;
+    width: 2px;
+    height: 100%;
+    background-color: #d5d5d5;
+    margin-top: 80px;
+}
+.main .logincontainer_horizontal .containertable .center .centertable .centercircle th {
+    width: 100%;
+    height: 20%;
+    text-align: center;
+}
+.main .logincontainer_horizontal .containertable .center .centertable .centercircle th div {
+    display: inline-block;
+    border: 2px solid #d5d5d5;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+}
+.main .logincontainer_horizontal .containertable .center .centertable .centercircle th div span {
+    color: #d5d5d5;
+    font-size: 11.2px;
+    line-height: 42px;
+    vertical-align: middle;
+    padding: 4px;
+    font-family: "Roboto-Medium";
+}
+.main .logincontainer_horizontal .containertable .center .centertable .bottomline th {
+    width: 100%;
+    height: 40%;
+    text-align: center;
+    overflow: hidden;
+}
+.main .logincontainer_horizontal .containertable .center .centertable .bottomline th div {
+    display: inline-block;
+    width: 2px;
+    height: 100%;
+    background-color: #d5d5d5;
+    margin-bottom: 75px;
+}
+.main .logincontainer_horizontal .containertable .right {
+    width: 45%;
+    height: 100%;
+}
+.main .logincontainer_horizontal .containertable .right .righttable {
+    width: 100%;
+    height: 80%;
+    table-layout: fixed;
+}
+.main .logincontainer_horizontal .containertable .right .righttable .caption th {
+    width: 100%;
+    height: 20%;
+}
+.main .logincontainer_horizontal .containertable .right .righttable .caption th span {
+    color: var(--text-color-grey);
+    font-size: 18px;
+    font-family: "Roboto-Medium"
+}
+.main .logincontainer_horizontal .containertable .right .righttable .username th {
+    width: 100%;
+    height: 15%;
+}
+.main .logincontainer_horizontal .containertable .right .righttable .username th input {
+    display: inline-block;
+    width: 222.5px;
+    height: 25px;
+    padding-left: 5px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    padding-right: 5px;
+    font-family: "Roboto-Medium";
+    font-size: 13px;
+    color: var(--text-color-grey);
+}
+.main .logincontainer_horizontal .containertable .right .righttable .password th {
+    width: 100%;
+    height: 12%;
+}
+.main .logincontainer_horizontal .containertable .right .righttable .password th input {
+    display: inline-block;
+    width: 222.5px;
+    height: 25px;
+    padding-left: 5px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    padding-right: 5px;
+    font-family: "Roboto-Medium";
+    font-size: 13px;
+    color: var(--text-color-grey);
+}
+.main .logincontainer_horizontal .containertable .right .righttable .buttonrow1 th {
+    width: 100%;
+    height: 25%;
+    text-align: center;
+}
+.main .logincontainer_horizontal .containertable .right .righttable .buttonrow1 th input {
+    zoom: 1.4;
+}
+.main .logincontainer_horizontal .containertable .right .righttable .buttonrow1 th span {
+    font-size: 12px;
+    color: #A5A5A5;
+    font-family: "Roboto-Medium";
+}
+.main .logincontainer_horizontal .containertable .right .righttable .buttonrow1 th a {
+   display: inline-block;
+    width: 150px;
+    height: 50px;
+    background-color: var(--color-female-red);
+    border-radius: 8.8px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 50px;
+    font-family: "Roboto-Medium";
+    color: white;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.14);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.14);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.14);
+}
+.main .logincontainer_horizontal .containertable .right .righttable .buttonrow1 th a:hover {
+    background-color: #db363b;
+    -webkit-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.14);
+    -moz-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.14);
+    box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.14);
+}
+.main .logincontainer_horizontal .containertable .right .righttable .buttonrow2 th {
+    width: 100%;
+    height: 15%;
+    text-align: center;
+}
+.main .logincontainer_horizontal .containertable .right .righttable .buttonrow2 th span {
+    font-size: 12px;
+    color: #a5a5a5;
+    font-family: "Roboto-Medium";
+    letter-spacing: -0.2px;
+}
+.main .logincontainer_horizontal .containertable .right .righttable .buttonrow2 th .register span {
+    text-decoration: underline;
+    color: var(--color-female-red);
+}
+.main .logincontainer_vertical {
+    display: none;
+}

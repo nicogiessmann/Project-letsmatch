@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta id="myViewport" name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function () {
+            if (window.innerWidth <= 505) {
+                var mvp = document.getElementById('myViewport');
+                mvp.setAttribute('content', 'width=505');
+            }
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="stylemobile.css">
+    <link rel="stylesheet" type="text/css" href="styledesktop.css" media="only screen and (min-width: 1200px)">
+    <script src="js/dropdown.js"></script>
+    <script src="js/urlparam.js"></script>
+    <script src="js/linker.js"></script>
+    <script src="js/opener.js"></script>
+    <title>Let'sMatch &#8729; Startseite</title>
+    <script>
+        if (lang == LANG_EN) {
+            document.getElementsByTagName("title")[0].innerHTML = "Let'sMatch &#8729; About";
+        }
+    </script>
+    <!--Cookie notification-->
+    <link rel="stylesheet" type="text/css" href="cookie.css"/>
+    <script src="js/cookie.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            var background_color = "#ffffff";
+            var text_color = "#3a3a3a";
+            var button_color = "#e36165";
+            var button_text_color = "#ffffff";
+            var text = undefined;
+            if(lang==LANG_EN){
+                text = "Let'sMatch uses cookies to provide essential features. Disabling cookies will make this website not work anymore.";
+            }
+            else{
+                text = "Let'sMatch benutzt Cookies um wichtige Funktionen zur Verfügung zu stellen. Bei Deaktivierung von Cookies wird die Webseite nicht mehr funktionieren.";
+            }
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": background_color,
+                        "text": text_color
+                    },
+                    "button": {
+                        "background": button_color,
+                        "text": button_text_color
+                    }
+                },
+                "content": {
+                    "message": text,
+                    "href": "juristic/cookie.html"
+                }
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <div class="stylesheet_check" id="stylesheet_check"></div>
+    <header class="topnav" id="topnav">
+        <div class="topnav_overflow" id="topnav_overflow">
+            <div class="navddicon" id='navddicon' onclick="navddOnClick();">&#9776;</div>
+            <div class="homebutton">
+                <a onclick="link('index.html');">
+                    <img src="logo.png">
+                </a>
+            </div>
+            <div class="centercontent">
+                <div class="wrapper">
+                    <a id="match" onclick="link('match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                    <a id="leaderboard" onclick="link('leaderboard/leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </div>
+            </div>
+            <div class="rightwrapper" id="rightwrapper">
+                <div class="profilebutton">
+                    <a id="profile" onclick="link('profile/login.html');">
+                        <img src="image.png" id="rightwrapperprofileimg">
+                        <span class="en profilelabel">Profile</span>
+                        <span class="de profilelabel">Profil</span>
+                    </a>
+                </div>
+                <div class="langddicon" onclick="langddOnClick();">
+                    <i class="material-icons" id='langddicon_one'>&#xE8E2;</i>
+                    <i class="material-icons" id='langddicon_two'>&#xE313;</i>
+                </div>
+            </div>
+            <div class='navdd' id='navdd'>
+                <p>
+                    <a id="dmatch" onclick="link('match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                </p>
+                <p>
+                    <a id="dleaderboard" onclick="link('leaderboard/leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </p>
+                <p>
+                    <a id="dprofile" onclick="link('profile/login.html');">
+                        <img src="image.png" id="navddprofileimg">
+                        <span class="en profilelabel">Profile</span>
+                        <span class="de profilelabel">Profil</span>
+                    </a>
+                </p>
+            </div>
+            <div class="langdd" id='langdd'>
+                <p class="ger" id="langddger" onclick="changeLang('ger');">
+                    <img src="flags/flag_ger.png">
+                    <p1>Deutsch</p1>
+                </p>
+                <p class="eng" id="langddeng" onclick="changeLang('eng');">
+                    <img src="flags/flag_us.png">
+                    <p1>English</p1>
+                </p>
+            </div>
+            <div class="designline_left" id="designline_left"></div>
+            <div class="designline_right" id="designline_right"></div>
+        </div>
+    </header>
+    <div class="dropdown_background" id="dropdown_background"></div>
+    <main class="main">
+        <div class="background"></div>
+        <div class="home"></div>
+        <div class="navpoints">
+            <i class="material-icons" onclick="link('index.html');">&#xE3FA;</i>
+            <i class="material-icons" onclick='link("match/match.html");'>&#xE40C;</i>
+            <i class="material-icons" onclick='link("leaderboard/leaderboard.html");'>&#xE40C;</i>
+            <i class="material-icons" onclick='link("profile/login.html");'>&#xE40C;</i>
+        </div>
+    </main>
+    <div class="arrow_right">
+        <i class="material-icons" onclick='link("match/match.html");'>&#xE409;</i>
+    </div>
+    <footer class="footer">
+        <div class="center">
+            <ul class="footersections">
+                <li>
+                    <ul class="footerbuttons">
+                        <li>
+                            <a href="#privacypolicy">
+                                <span class="en">Privacy Policy</span>
+                                <span class="de">Datenschutz</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#termsofuse">
+                                <span class="en">Terms of Use</span>
+                                <span class="de">Nutzungsbedingungen</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact">
+                                <span class="en">Contact</span>
+                                <span class="de">Kontakt</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#help">
+                                <span class="en">Help</span>
+                                <span class="de">Hilfe</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="footersocial">
+                        <li>
+                            <a href="https://www.facebook.com" target="_blank">
+                                <img src="social_icons/facebook.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com" target="_blank">
+                                <img src="social_icons/instagram.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.snapchat.com" target="_blank">
+                                <img src="social_icons/snapchat.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com" target="_blank">
+                                <img src="social_icons/twitter.png">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="footercopyright">
+                    <span class="en">Copyright &copy; 2017 Nico Gie&szlig;mann. All rights reserved.</span>
+                    <span class="de">Copyright &copy; 2017 Nico Gie&szlig;mann. Alle Rechte vorbehalten.</span>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <script src="js/langswitch.js"></script>
+    <script src="js/cookieload.js"></script>
+</body>
+
+</html>

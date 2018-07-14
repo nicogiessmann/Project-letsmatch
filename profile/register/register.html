@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta id="myViewport" name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function () {
+            if (window.innerWidth <= 505) {
+                var mvp = document.getElementById('myViewport');
+                mvp.setAttribute('content', 'width=505');
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="stylemobile.css">
+    <link rel="stylesheet" href="styledesktop.css" media="only screen and (min-width: 1200px)">
+    <script src="../../js/dropdown.js"></script>
+    <script src="../../js/urlparam.js"></script>
+    <script src="../../js/linker.js"></script>
+    <script src="../../js/opener.js"></script>
+    <script src="js/cookieload.js"></script>
+    <script src="js/registration.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <title class="en">Let'sMatch &#8729; Registrierung</title>
+    <script>
+        if (lang == LANG_EN) {
+            document.getElementsByTagName("title")[0].innerHTML = "Let'sMatch &#8729; registration";
+        }
+    </script>
+    <!--Cookie notification-->
+    <link rel="stylesheet" type="text/css" href="../../cookie.css" />
+    <script src="../../js/cookie.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            var background_color = "#ffffff";
+            var text_color = "#3a3a3a";
+            var button_color = "#e36165";
+            var button_text_color = "#ffffff";
+            var text = undefined;
+            if (lang == LANG_EN) {
+                text = "Let'sMatch uses cookies to provide essential features. Disabling cookies will make this website not work anymore.";
+            }
+            else {
+                text = "Let'sMatch benutzt Cookies um wichtige Funktionen zur Verfügung zu stellen. Bei Deaktivierung von Cookies wird die Webseite nicht mehr funktionieren.";
+            }
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": background_color,
+                        "text": text_color
+                    },
+                    "button": {
+                        "background": button_color,
+                        "text": button_text_color
+                    }
+                },
+                "content": {
+                    "message": text,
+                    "href": "juristic/cookie.html"
+                }
+            })
+        });
+    </script>
+</head>
+
+<body onresize="checkResolution();">
+    <div class="stylesheet_check" id="stylesheet_check"></div>
+    <header class="topnav" id="topnav">
+        <div class="topnav_overflow" id="topnav_overflow">
+            <div class="navddicon" id='navddicon' onclick="navddOnClick();">&#9776;</div>
+            <div class="homebutton">
+                <a style="cursor:pointer" onclick="link('../../index.html');">
+                    <img src="../../logo.png">
+                </a>
+            </div>
+            <div class="centercontent">
+                <div class="wrapper">
+                    <a id="match" style="cursor:pointer" onclick="link('../../match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                    <a id="leaderboard" style="cursor:pointer" onclick="link('../../leaderboard/leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </div>
+            </div>
+            <div class="rightwrapper" id="rightwrapper">
+                <div class="profilebutton">
+                    <a id="profile" onclick="link('../login.html');">
+                        <img src="../../image.png" id="rightwrapperprofileimg">
+                        <span class="en profilelabel">Profile</span>
+                        <span class="de profilelabel">Profil</span>
+                    </a>
+                </div>
+                <div class="langddicon" onclick="langddOnClick();">
+                    <i class="material-icons" id='langddicon_one'>&#xE8E2;</i>
+                    <i class="material-icons" id='langddicon_two'>&#xE313;</i>
+                </div>
+            </div>
+            <div class='navdd' id='navdd'>
+                <p>
+                    <a id="dmatch" style="cursor:pointer" onclick="link('../../match/match.html');">
+                        <i class="material-icons">&#xE915;</i>Match</a>
+                </p>
+                <p>
+                    <a id="dleaderboard" style="cursor:pointer" onclick="link('../../leaderboard/leaderboard.html');">
+                        <i class="material-icons">&#xE242;</i>
+                        <span class="en">Leaderboard</span>
+                        <span class="de">Bestenliste</span>
+                    </a>
+                </p>
+                <p>
+                    <a id="dprofile" style="cursor:pointer" onclick="link('../login.html');">
+                        <img src="../../image.png" id="navddprofileimg">
+                        <span class="en">Profile</span>
+                        <span class="de">Profil</span>
+                    </a>
+                </p>
+            </div>
+            <div class="langdd" id='langdd'>
+                <p class="ger" id="langddger" style="cursor:pointer" onclick="changeLang('ger');">
+                    <img src="../../flags/flag_ger.png">
+                    <p1>Deutsch</p1>
+                </p>
+                <p class="eng" id="langddeng" style="cursor:pointer" onclick="changeLang('eng');">
+                    <img src="../../flags/flag_us.png">
+                    <p1>English</p1>
+                </p>
+            </div>
+            <div class="designline_left" id="designline_left"></div>
+            <div class="designline_right" id="designline_right"></div>
+        </div>
+    </header>
+    <div class="dropdown_background" id="dropdown_background"></div>
+    <main class="main">
+        <div class="background"></div>
+        <div class="registercontainer">
+            <div class="back">
+                <i style="cursor:pointer" onclick='link("../login.html");' class="material-icons">&#xE317</i>
+            </div>
+            <div class="caption">
+                <span class="en">Register</span>
+                <span class="de">Registrieren</span>
+            </div>
+            <div class="firstnamesign">
+                <span class="en">First Name:</span>
+                <span class="de">Vorname:</span>
+            </div>
+            <div class="fistnameinput">
+                <input id="inputvornameen" class="en inputvorname" type="text" placeholder="enter your first name..." onfocus='backToDefault("inputvornameen","inputvornamede");'>
+                <input id="inputvornamede" class="de inputvorname" type="text" placeholder="Vorname eingeben..." onfocus='backToDefault("inputvornamede","inputvornameen");'>
+            </div>
+            <div class="lastnamesign">
+                <span class="en">Last Name:</span>
+                <span class="de">Nachname:</span>
+            </div>
+            <div class="lastnameinput">
+                <input id="inputnachnameen" class="en inputnachname" type="text" placeholder="enter your last name..." onfocus='backToDefault("inputnachnameen", "inputnachnamede");'>
+                <input id="inputnachnamede" class="de inputnachname" type="text" placeholder="Nachname eingeben..." onfocus='backToDefault("inputnachnameen", "inputnachnamede");'>
+            </div>
+            <div class="emailsign">
+                <span class="en">Email:</span>
+                <span class="de">E-Mail:</span>
+            </div>
+            <div class="emailinput">
+                <input id="inputemailen" class="en inputemail" type="text" maxlenght="50" placeholder="enter your email..." onfocus='backToDefault("inputemailen","inputemailde");'>
+                <input id="inputemailde" class="de inputemail" type="text" maxlenght="50" placeholder="E-Mail eingeben..." onfocus='backToDefault("inputemailen","inputemailde");'>
+            </div>
+            <!--
+                <tr id="telsign">
+                  <th>
+                     <span class="de">WhatsApp-Nummer (f&uuml;r Identifikation):</span>
+                     <span class="en">WhatsApp-Number (for validation):</span>
+                  </th>
+               </tr>
+               <tr id="telinput">
+                  <th class="inputth">
+                     <input id="inputtelen" class="en inputtel" type="text" placeholder="enter your WhatsApp-Number..." onfocus='backToDefault("inputtelen","inputtelde");'>
+                     <input id="inputtelde" class="de inputtel" type="text" placeholder="WhatsApp-Nummer eingeben..." onfocus='backToDefault("inputtelen","inputtelde");'>
+                  </th>
+               </tr>
+            -->
+            <div class="usernamesign">
+                <span class="en">Username:</span>
+                <span class="de">Nutzername:</span>
+            </div>
+            <div class="usernameinput">
+                <input id="inputnutzernameen" class="en inputnutzername" type="text" placeholder="choose a username..." onfocus='backToDefault("inputnutzernamede", "inputnutzernameen")'>
+                <input id="inputnutzernamede" class="de inputnutzername" type="text" placeholder="Nutzername w&auml;hlen..." onfocus='backToDefault("inputnutzernamede", "inputnutzernameen")'>
+            </div>
+            <div class="passwordsign">
+                <span class="en">Password:</span>
+                <span class="de">Passwort:</span>
+            </div>
+            <div class="passwordinput">
+                <input id="inputpassworten" class="en inputpasswort" type="password" placeholder="choose a password..." onfocus='backToDefault("inputpasswortde", "inputpassworten");'
+                    maxlength="20">
+                <input id="inputpasswortde" class="de inputpasswort" type="password" placeholder="Passwort w&auml;hlen..." onfocus='backToDefault("inputpasswortde", "inputpassworten");'
+                    maxlength="20">
+                <div class="strengthcontainer">
+                    <div class="progress" id="passwortstrength"></div>
+                </div>
+            </div>
+            <div class="captcha">
+                <!--
+                     All verification will pass key:
+                     6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+                     Real secure key:
+                     6LfXpC4UAAAAAA4z8_Dv8QGqCyLf0howvsESDFU6
+                     -->
+                <div id="grecaptcha" class="g-recaptcha" data-sitekey="6LfXpC4UAAAAAA4z8_Dv8QGqCyLf0howvsESDFU6" onmouseover='backToDefault("grecaptcha", "grecaptcha")'></div>
+            </div>
+            <div class="apply">
+                <a style="cursor:pointer" id="applybutton" onclick="submitRegistration();">
+                    <span class="en">Create new account</span>
+                    <span class="de">Neuen Account erstellen</span>
+                </a>
+            </div>
+        </div>
+        <div class="navpoints">
+            <i class="material-icons" style="cursor:pointer" onclick='link("../../index.html");'>&#xE40C;</i>
+            <i class="material-icons" style="cursor:pointer" onclick='link("../../match/match.html");'>&#xE40C;</i>
+            <i class="material-icons" style="cursor:pointer" onclick='link("../../leaderboard/leaderboard.html");'>&#xE40C;</i>
+            <i class="material-icons" style="cursor:pointer" onclick='link("register.html");'>&#xE3FA;</i>
+        </div>
+    </main>
+    <div class="arrow_left">
+        <i class="material-icons" style="cursor:pointer" onclick='link("../../leaderboard/leaderboard.html");'>&#xE408;</i>
+    </div>
+    <footer class="footer">
+        <div class="center">
+            <ul class="footersections">
+                <li>
+                    <ul class="footerbuttons">
+                        <li>
+                            <a style="cursor:pointer" href="#privacypolicy">
+                                <span class="en">Privacy Policy</span>
+                                <span class="de">Datenschutz</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a style="cursor:pointer" href="#termsofuse">
+                                <span class="en">Terms of Use</span>
+                                <span class="de">Nutzungsbedingungen</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a style="cursor:pointer" href="#contact">
+                                <span class="en">Contact</span>
+                                <span class="de">Kontakt</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a style="cursor:pointer" href="#help">
+                                <span class="en">Help</span>
+                                <span class="de">Hilfe</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="footersocial">
+                        <li>
+                            <a style="cursor:pointer" href="https://www.facebook.com" target="_blank">
+                                <img src="../../social_icons/facebook.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a style="cursor:pointer" href="https://www.instagram.com" target="_blank">
+                                <img src="../../social_icons/instagram.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a style="cursor:pointer" href="https://www.snapchat.com" target="_blank">
+                                <img src="../../social_icons/snapchat.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a style="cursor:pointer" href="https://twitter.com" target="_blank">
+                                <img src="../../social_icons/twitter.png">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="footercopyright">
+                    <span class="en">Copyright &copy; 2017 Nico Gie&szlig;mann All rights reserved.</span>
+                    <span class="de">Copyright &copy; 2017 Nico Gie&szlig;mann Alle Rechte vorbehalten.</span>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <script src="../../js/langswitch.js"></script>
+    <script src="js/passwortstrength.js"></script>
+    <script src="js/sociallogindecode.js"></script>
+</body>
+
+</html>
